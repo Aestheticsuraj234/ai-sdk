@@ -11,6 +11,14 @@ export async function POST(request: NextRequest) {
       prompt: prompt,
     });
 
+    result.usage.then((usage)=>{
+      console.log({
+        inputToken:usage.inputTokens,
+        outputToken:usage.outputTokens,
+        totalToken:usage.totalTokens
+      })
+    })
+
     return result.toUIMessageStreamResponse();
   } catch (error) {
     return Response.json({ error: "Failed to generate text" }, { status: 500 });
